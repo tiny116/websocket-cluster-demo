@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Example</title>
+</head>
+<style>
+    .log {
+        width: 45%;
+        height: 500px;
+        overflow: scroll;
+        border: 1px solid #eee;
+        background-color: #f9f9f9;
+        margin-top: 24px;
+    }
+</style>
+<body>
+<h1>Websocket demo</h1>
+<input type="text" id="messageInput">
+<button onclick="sendMessage()">Send</button>
+
+<div class="log" id="log"></div>
+
+<script>
+    function log(msg) {
+        const log = document.getElementById("log");
+        const div = document.createElement("div");
+        div.innerText = `[${new Date().toLocaleString()}] ${msg}`;
+        log.append(div);
+        log.scroll({ top: 9999 })
+    }
+
+    var socket = new WebSocket("ws://127.0.0.1:9002/my/websocket");
+
+    socket.onopen = function (event) {
+        log("WebSocket is open now.");
+    };
+
+    socket.onmessage = function (event) {
+        var message = event.data;
+        log("Received message: " + message);
+    };
+
+    socket.onclose = function (event) {
+        log("WebSocket is closed now.");
+    };
+
+    function sendMessage() {
+        var message = document.getElementById("messageInput").value;
+        log('Send msg: ' + message);
+        socket.send(message);
+    }
+</script>
+</body>
+</html>

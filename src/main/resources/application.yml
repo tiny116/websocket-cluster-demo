@@ -1,0 +1,39 @@
+#server:
+#  port: 9003
+
+server:
+  servlet:
+    context-path: /websocket
+
+spring:
+  datasource:
+    url: jdbc:mysql://47.107.33.235:30013/test_dingyi?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&rewriteBatchedStatements=true
+    username: root
+    password: cSCEc3b@1914#
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      time-between-eviction-runs-millis: 300000
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    ssl: false
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 1
+        max-idle: 8
+        min-idle: 0
+    timeout: 5000
+    channel:
+      msgToAll: websocket.msgToAll
+      userStatus: websocket.userStatus
+    set:
+      onlineUsers: websocket.onlineUsers
+
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+    static-path-pattern: /static/**
